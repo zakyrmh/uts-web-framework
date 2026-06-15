@@ -30,5 +30,8 @@ class DatabaseSeeder extends Seeder
         // 3. BUAT DATA MAHASISWA (Menggunakan Factory yang kita buat di Langkah 1)
         // Kita buat 25 data agar pagination (5 data per halaman) berfungsi dengan baik
         Mahasiswa::factory()->count(25)->create();
+
+        // 4. BUAT DATA RUANGAN
+        $this->call(RuanganSeeder::class);
     }
 }
