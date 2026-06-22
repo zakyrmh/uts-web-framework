@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Shahid\Captcha\Facades\Captcha;
 
 class AuthController extends Controller
 {
@@ -23,6 +24,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'captcha' => ['required'],
         ], [
             'name.required' => 'Nama wajib diisi.',
             'email.required' => 'Email wajib diisi.',
@@ -31,7 +33,14 @@ class AuthController extends Controller
             'password.required' => 'Password wajib diisi.',
             'password.min' => 'Password minimal 8 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
+            'captcha.required' => 'Kode captcha wajib diisi.',
         ]);
+
+        if (!Captcha::validate($request->captcha)) {
+            return back()
+                ->withErrors(['captcha' => 'Kode captcha yang dimasukkan salah.'])
+                ->withInput();
+        }
 
         // 2. Simpan ke Database
         $user = User::create([
