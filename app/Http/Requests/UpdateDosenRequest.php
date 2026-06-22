@@ -7,23 +7,28 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateDosenRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
+        $dosen = $this->route('dosen');
+        $dosenId = $dosen instanceof \App\Models\Dosen ? $dosen->id : $dosen;
+
         return [
-            //
+            'nidn'       => 'required|string|size:18|unique:dosens,nidn,' . $dosenId,
+            'nama_dosen' => 'required|string|max:255',
+            'email'      => 'required|email|max:255|unique:dosens,email,' . $dosenId,
+            'no_telp'    => 'required|string|max:15',
+            'prodi_id'   => 'required|exists:prodis,id',
+            'alamat'     => 'required|string',
         ];
     }
 }

@@ -13,7 +13,7 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswas = Mahasiswa::latest('created_at')->paginate(5);
+        $mahasiswas = Mahasiswa::with('prodi')->latest('created_at')->paginate(5);
         return view('mahasiswa.index', compact('mahasiswas'));
     }
 
@@ -22,7 +22,8 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        return view('mahasiswa.create');
+        $prodis = \App\Models\Prodi::orderBy('nama_prodi')->get();
+        return view('mahasiswa.create', compact('prodis'));
     }
 
     /**
@@ -35,7 +36,7 @@ class MahasiswaController extends Controller
             'nama_lengkap' => 'required|string|max:150',
             'tempat_lahir' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
-            'prodi' => 'required|string|max:100',
+            'prodi_id' => 'required|exists:prodis,id',
             'ipk' => 'required|numeric|between:0,4.00',
             'alamat' => 'required|string',
         ]);
@@ -58,7 +59,8 @@ class MahasiswaController extends Controller
      */
     public function edit(Mahasiswa $mahasiswa)
     {
-        return view('mahasiswa.edit', compact('mahasiswa'));
+        $prodis = \App\Models\Prodi::orderBy('nama_prodi')->get();
+        return view('mahasiswa.edit', compact('mahasiswa', 'prodis'));
     }
 
     /**
@@ -72,7 +74,7 @@ class MahasiswaController extends Controller
             'nama_lengkap' => 'required|string|max:150',
             'tempat_lahir' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
-            'prodi' => 'required|string|max:100',
+            'prodi_id' => 'required|exists:prodis,id',
             'ipk' => 'required|numeric|between:0,4.00',
             'alamat' => 'required|string',
         ]);

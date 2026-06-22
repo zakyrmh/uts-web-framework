@@ -9,7 +9,7 @@ uses(Illuminate\Foundation\Testing\RefreshDatabase::class);
 test('halaman login dapat diakses', function () {
     get('/login')
         ->assertStatus(200)
-        ->assertSee('Masuk Akun');
+        ->assertSee('Please sign in');
 });
 
 test('user baru dapat melakukan registrasi', function () {
@@ -43,6 +43,6 @@ test('user dapat login dengan kredensial yang benar', function () {
         'password' => 'secret123'
     ]);
 
-    $response->assertRedirect('/mahasiswa');
+    $response->assertRedirect('/dashboard');
     assertAuthenticatedAs($user);
-} );
+});

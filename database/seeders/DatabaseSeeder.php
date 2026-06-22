@@ -27,11 +27,14 @@ class DatabaseSeeder extends Seeder
         // 2. BUAT AKUN TAMBAHAN (Opsional, menggunakan Factory bawaan Laravel)
         User::factory()->count(4)->create();
 
-        // 3. BUAT DATA MAHASISWA (Menggunakan Factory yang kita buat di Langkah 1)
+        // 3. BUAT DATA PRODI
+        $this->call(ProdiSeeder::class);
+
+        // 4. BUAT DATA MAHASISWA (Menggunakan Factory yang kita buat di Langkah 1)
         // Kita buat 25 data agar pagination (5 data per halaman) berfungsi dengan baik
         Mahasiswa::factory()->count(25)->create();
 
-        // 4. BUAT DATA RUANGAN
+        // 5. BUAT DATA RUANGAN
         $this->call(RuanganSeeder::class);
     }
 }

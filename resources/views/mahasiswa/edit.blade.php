@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('title', 'Edit Data Mahasiswa')
 
@@ -39,9 +39,16 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Program Studi</label>
-                            <input type="text" name="prodi" class="form-control @error('prodi') is-invalid @enderror" value="{{ old('prodi', $mahasiswa->prodi) }}">
-                            @error('prodi') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            <label class="form-label">Program Studi (Prodi)</label>
+                            <select name="prodi_id" class="form-select @error('prodi_id') is-invalid @enderror">
+                                <option value="" disabled>-- Pilih Program Studi --</option>
+                                @foreach($prodis as $prodi)
+                                    <option value="{{ $prodi->id }}" {{ old('prodi_id', $mahasiswa->prodi_id) == $prodi->id ? 'selected' : '' }}>
+                                        {{ $prodi->nama_prodi }} ({{ $prodi->jenjang }})
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('prodi_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">IPK</label>

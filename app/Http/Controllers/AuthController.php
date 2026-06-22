@@ -72,7 +72,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             // Alihkan ke halaman tujuan (default: /mahasiswa)
-            return redirect()->intended(route('mahasiswa.index'))->with('success', 'Login berhasil! Halo kembali.');
+            return redirect()->intended(route('dashboard'))->with('success', 'Login berhasil! Halo kembali.');
         }
 
         // 3. Jika Gagal, Kembalikan dengan error khusus email/password salah

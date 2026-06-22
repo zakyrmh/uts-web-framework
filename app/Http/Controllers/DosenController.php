@@ -13,7 +13,9 @@ class DosenController extends Controller
      */
     public function index()
     {
-        //
+        $dosens = Dosen::with('prodi')->latest()->paginate(5);
+
+        return view('dosen.index', compact('dosens'));
     }
 
     /**
@@ -21,7 +23,9 @@ class DosenController extends Controller
      */
     public function create()
     {
-        //
+        $prodis = \App\Models\Prodi::orderBy('nama_prodi')->get();
+
+        return view('dosen.create', compact('prodis'));
     }
 
     /**
@@ -29,7 +33,9 @@ class DosenController extends Controller
      */
     public function store(StoreDosenRequest $request)
     {
-        //
+        Dosen::create($request->validated());
+
+        return redirect()->route('dosen.index')->with('success', 'Data dosen berhasil ditambahkan!');
     }
 
     /**
@@ -45,7 +51,9 @@ class DosenController extends Controller
      */
     public function edit(Dosen $dosen)
     {
-        //
+        $prodis = \App\Models\Prodi::orderBy('nama_prodi')->get();
+
+        return view('dosen.edit', compact('dosen', 'prodis'));
     }
 
     /**
@@ -53,7 +61,9 @@ class DosenController extends Controller
      */
     public function update(UpdateDosenRequest $request, Dosen $dosen)
     {
-        //
+        $dosen->update($request->validated());
+
+        return redirect()->route('dosen.index')->with('success', 'Data dosen berhasil diperbarui!');
     }
 
     /**
@@ -61,6 +71,8 @@ class DosenController extends Controller
      */
     public function destroy(Dosen $dosen)
     {
-        //
+        $dosen->delete();
+
+        return redirect()->route('dosen.index')->with('success', 'Data dosen berhasil dihapus!');
     }
 }

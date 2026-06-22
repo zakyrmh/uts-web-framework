@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDosenRequest extends FormRequest
+class StoreProdiRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -20,12 +20,9 @@ class StoreDosenRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nidn'       => 'required|string|size:18|unique:dosens,nidn',
-            'nama_dosen' => 'required|string|max:255',
-            'email'      => 'required|email|max:255|unique:dosens,email',
-            'no_telp'    => 'required|string|max:15',
-            'prodi_id'   => 'required|exists:prodis,id',
-            'alamat'     => 'required|string',
+            'nama_prodi' => 'required|string|max:100|unique:prodis,nama_prodi',
+            'jenjang'    => 'required|string|in:D3,D4',
+            'keterangan' => 'nullable|string|max:255',
         ];
     }
 }

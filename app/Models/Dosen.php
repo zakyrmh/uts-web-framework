@@ -10,6 +10,19 @@ class Dosen extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama',
+        'nidn',
+        'nama_dosen',
+        'email',
+        'no_telp',
+        'prodi_id',
+        'alamat'
     ];
+
+    /**
+     * Dapatkan Program Studi (Prodi) yang menaungi dosen ini.
+     */
+    public function prodi(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Prodi::class);
+    }
 }

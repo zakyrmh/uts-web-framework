@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_lengkap', 150);
             $table->string('tempat_lahir', 50);
             $table->date('tanggal_lahir');
-            $table->string('prodi', 100);
+            $table->foreignId('prodi_id')->constrained('prodis')->onDelete('cascade');
             $table->decimal('ipk', 3, 2);
             $table->text('alamat');
             $table->timestamps();

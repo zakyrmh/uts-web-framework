@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dosens', function (Blueprint $table) {
+        Schema::create('prodis', function (Blueprint $table) {
             $table->id();
-            $table->char('nidn', 18);
-            $table->string('nama_dosen');
-            $table->string('email');
-            $table->char('no_telp', 15);
-            $table->foreignId('prodi_id')->constrained('prodis')->onDelete('cascade');
-            $table->string('alamat');
+            $table->string('nama_prodi', 100);
+            $table->enum('jenjang', ['D3', 'D4']);
+            $table->string('keterangan', 255)->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dosens');
+        Schema::dropIfExists('prodis');
     }
 };
