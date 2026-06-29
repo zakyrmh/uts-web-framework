@@ -7,45 +7,46 @@
     <div class="col-md-5">
         <div class="card shadow-sm border-0 rounded-3">
             <div class="card-body p-4">
-                <h3 class="card-title text-center mb-4 fw-bold text-primary">Daftar Akun</h3>
+                <h1 class="h3 mb-5 fw-normal text-center">Daftar Akun</h1>
 
                 <form action="{{ route('register') }}" method="POST">
-                    @csrf <div class="mb-3">
-                        <label for="name" class="form-label">Nama Lengkap</label>
+                    @csrf
+
+                    <div class="form-floating mb-3">
                         <input type="text" class="form-control @error('name') is-invalid @enderror"
-                               id="name" name="name" value="{{ old('name') }}" placeholder="Masukkan nama Anda">
+                               id="name" name="name" value="{{ old('name') }}" placeholder="Nama Lengkap">
+                        <label for="name">Nama Lengkap</label>
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Alamat Email</label>
+                    <div class="form-floating mb-3">
                         <input type="email" class="form-control @error('email') is-invalid @enderror"
                                id="email" name="email" value="{{ old('email') }}" placeholder="nama@email.com">
+                        <label for="email">Alamat Email</label>
                         @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                    <div class="form-floating mb-3">
                         <input type="password" class="form-control @error('password') is-invalid @enderror"
                                id="password" name="password" placeholder="Minimal 8 karakter">
+                        <label for="password">Password</label>
                         @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="mb-4">
-                        <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                    <div class="form-floating mb-3">
                         <input type="password" class="form-control"
                                id="password_confirmation" name="password_confirmation" placeholder="Ulangi password">
+                        <label for="password_confirmation">Konfirmasi Password</label>
                     </div>
                     
                     <div class="mb-4">
-                        <label for="captcha" class="form-label d-block">Verification Code (Captcha)</label>
-                        <div class="d-flex align-items-center gap-2 mb-2">
+                        <div class="d-flex align-items-center gap-2 mb-3">
                             <div class="border rounded p-1 bg-light d-inline-block">
                                 {!! Captcha::img() !!}
                             </div>
@@ -56,11 +57,14 @@
                                 </svg>
                             </button>
                         </div>
-                        <input type="text" class="form-control @error('captcha') is-invalid @enderror"
-                               id="captcha" name="captcha" placeholder="Masukkan kode captcha di atas" autocomplete="off">
-                        @error('captcha')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control @error('captcha') is-invalid @enderror"
+                                   id="captcha" name="captcha" placeholder="Masukkan kode captcha" autocomplete="off">
+                            <label for="captcha">Verification Code (Captcha)</label>
+                            @error('captcha')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
 
                     <script>
@@ -72,7 +76,7 @@
                         }
                     </script>
 
-                    <button type="submit" class="btn btn-primary w-100 py-2 rounded-2 fw-semibold">Daftar Sekarang</button>
+                    <button type="submit" class="btn btn-primary w-100 py-2" style="font-weight: 500;">Daftar Sekarang</button>
                 </form>
 
 
